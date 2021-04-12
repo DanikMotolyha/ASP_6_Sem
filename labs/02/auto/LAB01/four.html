@@ -1,0 +1,48 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    <label Text="ParmA" />
+    <input type="text" name="ParmA" id="x" placeholder="x" />
+    <br />
+    <label Text="ParmB" />
+    <input type="text" name="ParmB" id="y" placeholder="y" />
+    <br />
+    <input type="submit" value="Enter" onclick="a()" />
+
+
+	<form action="http://localhost:12243/task5" method="post">
+		<label for="">x:</label>
+		<input id="x" type="text" name="y"></br>
+		<label for="">y:</label>
+		<input id="y" type="text" name="x">
+		<input type="submit" value="FormGo">
+	</form>
+
+    <p id="results"></p>
+
+    <script>
+        function a() {
+
+            var xhr = new XMLHttpRequest();
+            var x = document.getElementById('x').value;
+            var y = document.getElementById('y').value;
+            let data = new FormData();
+            data.append('x', x);
+            data.append('y', y);
+            xhr.open('POST', 'http://localhost:12243/task5', true);
+            xhr.send(data);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4) return;
+
+                if (xhr.status != 200) {
+                    alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                    document.getElementById('results').innerHTML = xhr.responseText;
+                }
+            }
+        }
+</script>
+</body>
+</html>
